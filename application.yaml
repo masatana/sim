@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udp-deployment
+  labels:
+    app: myudp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myudp
+  template:
+    metadata:
+      labels:
+        app: myudp
+    spec:
+      containers:
+        - name: myudp
+          image: simserver:latest
+          imagePullPolicy: Never
+          args: ["-serverMode"]
+          ports:
+            - containerPort: 8888
+              protocol: UDP
